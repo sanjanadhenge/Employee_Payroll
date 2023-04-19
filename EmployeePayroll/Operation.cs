@@ -109,5 +109,29 @@ namespace EmployeePayroll
 
             }
         }
+        public void UpdateEmployee(int id, long Salary)
+        {
+            using (this.connection)
+            {
+
+                SqlCommand command = new SqlCommand("UpdateEmp", this.connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EmpId", id);
+                command.Parameters.AddWithValue("@Salary", Salary);
+                this.connection.Open();
+                var result = command.ExecuteNonQuery();
+                this.connection.Close();
+                if (result != 0)
+                {
+                    Console.WriteLine("Employee Updated Sucessfully");
+                }
+                else
+                {
+                    Console.WriteLine("Employee Updated  UnSucessfully");
+                }
+
+
+            }
+        }
     }
 }
