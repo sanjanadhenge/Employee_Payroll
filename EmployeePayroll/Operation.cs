@@ -13,8 +13,7 @@ namespace EmployeePayroll
         SqlConnection connection = new SqlConnection(connectionstring);
         public void GetAllRecords()
         {
-           
-                Employee employee = new Employee();
+            Employee employee = new Employee();
             try
             {
                 using (this.connection)
@@ -54,10 +53,61 @@ namespace EmployeePayroll
             {
                 throw new Exception(ex.Message);
             }
-               
-            
-          
+        }
+        public void AddEmployee(Employee employee)
+        {
+            using (this.connection)
+            {
 
+                SqlCommand command = new SqlCommand("AddEmployee", this.connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Name", employee.Name);
+                command.Parameters.AddWithValue("@Salary", employee.Salary);
+                command.Parameters.AddWithValue("@StartDate", employee.StartDate);
+                command.Parameters.AddWithValue("@Gender", employee.Gender);
+                command.Parameters.AddWithValue("@Phone", employee.Phone);
+                command.Parameters.AddWithValue("@Address", employee.Address);
+                command.Parameters.AddWithValue("@BasicPay", employee.BasicPay);
+                command.Parameters.AddWithValue("@Deduction", employee.Deductions);
+                command.Parameters.AddWithValue("@TaxeblePay", employee.TaxablePay);
+                command.Parameters.AddWithValue("@IncomeTax", employee.Incometax);
+                command.Parameters.AddWithValue("@NetPay", employee.NetPay);
+                this.connection.Open();
+                var result = command.ExecuteNonQuery();
+                this.connection.Close();
+                if (result != 0)
+                {
+                    Console.WriteLine("Employee Added Sucessfully");
+                }
+                else
+                {
+                    Console.WriteLine("Employee Added UnSucessfully");
+                }
+
+            }
+        }
+        public void DeleteEmployee(int id)
+        {
+            using (this.connection)
+            {
+
+                SqlCommand command = new SqlCommand("DeleteEmployee", this.connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@ID", id);
+                this.connection.Open();
+                var result = command.ExecuteNonQuery();
+                this.connection.Close();
+                if (result != 0)
+                {
+                    Console.WriteLine("Employee deleted Sucessfully");
+                }
+                else
+                {
+                    Console.WriteLine("Employee deleted UnSucessfully");
+                }
+
+
+            }
         }
     }
 }
