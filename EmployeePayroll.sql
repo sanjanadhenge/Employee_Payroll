@@ -105,10 +105,10 @@ Go
 Create Procedure UpdateEmp
 (
 @EmpId int,
-@Name VarChar(30)
+@Salary Bigint
 )
 as
 begin
-Update employee_payroll set Name = @Name where ID = @EmpId
+Update employee_payroll set Salary=@Salary where ID = @EmpId
 End;
 
