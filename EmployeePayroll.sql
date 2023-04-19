@@ -112,3 +112,13 @@ begin
 Update employee_payroll set Salary=@Salary where ID = @EmpId
 End;
 
+Go
+Create Procedure UpdateEmpBasicPay
+(
+@EmpId int,
+@BasicPay Bigint
+)
+as
+begin
+Update employee_payroll set BasicPay=@BasicPay where ID = @EmpId
+End;
