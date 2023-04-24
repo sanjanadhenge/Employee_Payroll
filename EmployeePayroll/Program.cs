@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,14 @@ namespace EmployeePayroll
 {
     internal class Program
     {
-      public static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Operation operation = new Operation();
             bool flag = true;
             while (flag)
             {
                 Console.WriteLine("Select an Option \n 1.Get Records \n 2.Add Employee \n 3.Delete Employee \n 4.Update Employee Data \n 5.Exit");
-                int option= Convert.ToInt32(Console.ReadLine());
+                int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
                     case 1:
@@ -43,16 +44,13 @@ namespace EmployeePayroll
                         operation.DeleteEmployee(10);
                         break;
                     case 4:
-                        operation.UpdateEmployee(11, 30000);
+                        operation.UpdateEmployee("Terisa", 30000);
                         break;
                     case 5:
                         flag = false;
                         break;
                 }
             }
-            
-            
-           
         }
     }
 }
