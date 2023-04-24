@@ -39,6 +39,7 @@ namespace EmployeePayroll
 
                         }
                         operation.AddEmployee(employee);
+                        operation.AddPayRoll();
                         break;
                     case 3:
                         operation.DeleteEmployee(10);
