@@ -15,7 +15,7 @@ namespace EmployeePayroll
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("Select an Option \n 1.Get Records \n 2.Add Employee \n 3.Delete Employee \n 4.Update Employee Data \n 5.Exit");
+                Console.WriteLine("Select an Option \n 1.Get Records \n 2.Add Employee \n 3.Delete Employee \n 4.Update Employee Data \n 5.Get Employees in Particular Range \n 6.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -47,6 +47,13 @@ namespace EmployeePayroll
                         operation.UpdateEmployee("Terisa", 30000);
                         break;
                     case 5:
+                        Console.WriteLine("Enter start date");
+                        DateTime fromDate = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter End date");
+                        DateTime ToDate = DateTime.Parse(Console.ReadLine());
+                        operation.GetEmployeeInParticularRange(fromDate, ToDate);
+                        break;
+                    case 6:
                         flag = false;
                         break;
                 }
