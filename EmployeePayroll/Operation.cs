@@ -12,6 +12,7 @@ namespace EmployeePayroll
         public static string connectionstring = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=payroll_service";
         SqlConnection connection = new SqlConnection(connectionstring);
         List<Employee> list = new List<Employee>();
+        List<long> employeeSalary = new List<long>();
         public void GetAllRecords()
         {
             Employee employee = new Employee();
@@ -41,6 +42,7 @@ namespace EmployeePayroll
                             employee.Incometax = read.GetInt64(10);
                             employee.NetPay = read.GetInt64(11);
                             list.Add(employee);
+                            employeeSalary.Add(employee.Salary);
                             Console.WriteLine(employee.ID + "\n" + employee.Name + "\n" + employee.Salary + "\n" + employee.StartDate + "\n" + employee.Gender + "\n" + employee.Phone + "\n" + employee.Address + "\n" + employee.BasicPay + "\n" + employee.Deductions + "\n" + employee.TaxablePay + "\n" + employee.Incometax + "\n" + employee.NetPay);
                         }
 
@@ -77,6 +79,7 @@ namespace EmployeePayroll
         }
         public void AddEmployee(Employee employee)
         {
+
             using (this.connection)
             {
 
@@ -103,6 +106,47 @@ namespace EmployeePayroll
                 else
                 {
                     Console.WriteLine("Employee Added UnSucessfully");
+                }
+
+            }
+        }
+        public void AddPayRoll()
+        {
+            Employee employee = new Employee();
+            int a = 1;
+            GetAllRecords();
+            using (this.connection)
+            {
+
+                SqlCommand command = new SqlCommand("AddPayRoll", this.connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                
+                 foreach(var item in employeeSalary)
+                {
+                    
+                    employee.Deductions =  (item * 20 / 100);
+                    employee.TaxablePay = item - employee.Deductions;
+                    employee.Incometax = employee.TaxablePay * 10 / 100;
+                    employee.NetPay = item - employee.Incometax;
+                    command.Parameters.AddWithValue("@Deduction", employee.Deductions);
+                    command.Parameters.AddWithValue("@TaxeblePay", employee.TaxablePay);
+                    command.Parameters.AddWithValue("@IncomeTax", employee.Incometax);
+                    command.Parameters.AddWithValue("@NetPay", employee.NetPay);
+                    command.Parameters.AddWithValue("@EmpID", a);
+                    a++;
+
+                }
+              
+                this.connection.Open();
+                var result1 = command.ExecuteNonQuery();
+                this.connection.Close();
+                if (result1 != 0)
+                {
+                    Console.WriteLine("Payroll Added Sucessfully");
+                }
+                else
+                {
+                    Console.WriteLine("Payroll Added UnSucessfully");
                 }
 
             }

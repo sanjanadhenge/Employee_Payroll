@@ -122,3 +122,27 @@ as
 begin
 Update employee_payroll set BasicPay=@BasicPay where ID = @EmpId
 End;
+--ADO.NET UC8
+create table payroll_details12
+(
+ID int Primary Key identity(1,1),
+Deduction Bigint,
+TaxeblePay Bigint,
+Incometax Bigint,
+NetPay Bigint,
+);
+
+Go
+Create Procedure AddPayRoll
+(
+
+@Deduction Bigint,
+@TaxeblePay Bigint,
+@Incometax Bigint,
+@NetPay Bigint
+
+)
+as
+begin
+Insert into payroll_details values(@Deduction ,@TaxeblePay ,@Incometax ,@NetPay )
+End;

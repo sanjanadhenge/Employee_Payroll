@@ -15,7 +15,7 @@ namespace EmployeePayroll
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("Select an Option \n 1.Get Records \n 2.Add Employee \n 3.Delete Employee \n 4.Update Employee Data \n 5.Get Employees in Particular Range \n 6.Calculate salary operation \n 7.Exit");
+                Console.WriteLine("Select an Option \n 1.Get Records \n 2.Add Employee \n 3.Delete Employee \n 4.Update Employee Data \n 5.Get Employees in Particular Range \n 6.Calculate salary operation \n 7.Add Payroll detalis \n 8.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -57,6 +57,9 @@ namespace EmployeePayroll
                         operation.CalulateRecords();
                         break;
                     case 7:
+                        operation.AddPayRoll();
+                        break;
+                    case 8:
                         flag = false;
                         break;
                 }
